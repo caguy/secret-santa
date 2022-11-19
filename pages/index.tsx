@@ -1,18 +1,19 @@
 import { NB_MAX_PARTICIPANTS } from "@/settings";
-import { SantaForm } from "./components";
+import { SantaForm } from "@/components";
+import { Box, Heading, Text } from "@chakra-ui/react";
 
 export default function Home() {
   return (
     <>
-      <h1>Organisez votre Secret Santa</h1>
-      <p>
+      <Heading as="h1">Organisez votre Secret Santa</Heading>
+      <Text textStyle="p">
         Ajoutez jusqu&apos;à {NB_MAX_PARTICIPANTS} participants à votre Secret
         Santa, l&apos;application se charge du tirage au sort et de le
         communiquer individuellement aux participants en toute discrétion !
-      </p>
-      <div className="mt-8">
+      </Text>
+      <Box mt={4}>
         <SantaForm />
-      </div>
+      </Box>
     </>
   );
 }
