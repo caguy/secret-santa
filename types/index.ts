@@ -1,1 +1,1 @@
-export * from "./Participants.types";
+export * from "./Participant.type";
