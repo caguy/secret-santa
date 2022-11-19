@@ -8,9 +8,7 @@ export default function App({ children }: HomeLayoutProps) {
   return (
     <html lang="fr">
       <body>
-        <main className="container mx-auto px-4 h-screen prose flex items-center">
-          <div>{children}</div>
-        </main>
+        <main className="container mx-auto px-4 py-16 prose">{children}</main>
       </body>
     </html>
   );
