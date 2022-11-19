@@ -5,6 +5,7 @@ import { v4 as uuid } from "uuid";
 import { IParticipant } from "@/types";
 import { AnimatedList, Button } from "@/components";
 import Participant from "./Participant";
+import { NB_MAX_PARTICIPANTS } from "@/settings";
 
 const newParticipant = () => ({ id: uuid(), name: "", email: "" });
 
@@ -30,6 +31,7 @@ export default function Participants() {
 
   return (
     <div>
+      <h2>Participants ({participants.length})</h2>
       <AnimatedList>
         {participants.map((participant) => (
           <AnimatedList.Item key={participant.id}>
@@ -43,9 +45,11 @@ export default function Participants() {
           </AnimatedList.Item>
         ))}
         <AnimatedList.Item>
-          <div className="mt-8">
-            <Button onClick={onAdd}>Ajouter un participant</Button>
-          </div>
+          {participants.length < NB_MAX_PARTICIPANTS && (
+            <div className="mt-8">
+              <Button onClick={onAdd}>Ajouter un participant</Button>
+            </div>
+          )}
         </AnimatedList.Item>
       </AnimatedList>
     </div>

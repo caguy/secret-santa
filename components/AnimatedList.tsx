@@ -14,22 +14,25 @@ const AnimatedListItem = ({ children }: AnimatedListItemProps) => {
   const [isPresent, safeToRemove] = usePresence();
 
   return (
-    <motion.div
-      layout
-      initial="out"
-      style={{
-        position: isPresent ? "static" : "absolute",
-        originY: 0,
-      }}
-      variants={{
-        in: { scaleY: 1, opacity: 1 },
-        out: { scaleY: 0, opacity: 0, zIndex: -1 },
-      }}
-      animate={isPresent ? "in" : "out"}
-      onAnimationComplete={() => !isPresent && safeToRemove()}
-    >
-      {children}
-    </motion.div>
+    <div className="relative">
+      <motion.div
+        layout
+        initial="out"
+        style={{
+          position: isPresent ? "static" : "absolute",
+          originY: 0,
+          width: "100%",
+        }}
+        variants={{
+          in: { scaleY: 1, opacity: 1 },
+          out: { scaleY: 0, opacity: 0, zIndex: -1 },
+        }}
+        animate={isPresent ? "in" : "out"}
+        onAnimationComplete={() => !isPresent && safeToRemove()}
+      >
+        {children}
+      </motion.div>
+    </div>
   );
 };
 

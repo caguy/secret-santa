@@ -27,7 +27,7 @@ export default function Participant({
   };
 
   return (
-    <article className="flex items-center bg-gray-100 p-4 my-4 rounded-lg">
+    <article className="flex items-center bg-gray-100 p-4 my-4 rounded-xl border border-grey-50">
       <div className="flex-grow mx-2">
         <Input label="Nom" value={name} onChange={handleName} />
       </div>
