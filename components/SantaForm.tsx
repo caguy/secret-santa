@@ -81,6 +81,7 @@ export default function SantaForm() {
               label="Note aux participants"
               isInvalid={!!errors.notes}
               helperText={errors.notes?.message}
+              placeholder="Date et lieu de l'évènenement, budget, ..."
               {...register("notes")}
             />
           </Box>
@@ -91,7 +92,7 @@ export default function SantaForm() {
         {participants.fields.map((participant, index) => (
           <AnimatedList.Item key={participant.id}>
             <Card as="article" my={4}>
-              <CardBody display="flex">
+              <CardBody display="flex" p={3}>
                 <Box flexGrow={1} mx={2}>
                   <TextField
                     isRequired
