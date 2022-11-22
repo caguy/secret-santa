@@ -1,8 +1,8 @@
 import { AnimatedList, TextField } from "@/ui";
 import { NB_MAX_PARTICIPANTS } from "@/settings";
 import { useFieldArray, useForm } from "react-hook-form";
-import { IParticipant } from "@/types";
-import { emailRegex } from "@/utils";
+import { IParticipant, ISanta } from "@/types";
+import { validateEmail } from "@/utils";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import {
   Alert,
@@ -13,16 +13,12 @@ import {
   CardBody,
   chakra,
   IconButton,
-  LinkBox,
-  LinkOverlay,
   Text,
 } from "@chakra-ui/react";
 
-export interface ISantaForm {
-  name: string;
-  notes: string;
-  participants: IParticipant[];
-}
+export type ISantaForm = ISanta & {
+  participants: Omit<IParticipant, "target">[];
+};
 
 export default function SantaForm() {
   const {
@@ -112,8 +108,7 @@ export default function SantaForm() {
                     helperText={errors.participants?.[index]?.email?.message}
                     {...register(`participants.${index}.email`, {
                       required: "Obligatoire",
-                      validate: (val) =>
-                        !!val.match(emailRegex) || "Email invalide",
+                      validate: (val) => validateEmail(val) || "Email invalide",
                     })}
                   />
                 </Box>
@@ -152,10 +147,8 @@ export default function SantaForm() {
           </AnimatedList.Item>
         )}
         <AnimatedList.Item key="sendButton">
-          <Box textAlign="center" my={12}>
-            <Button type="submit">
-              Tirer au sort et notifier les participants
-            </Button>
+          <Box my={12}>
+            <Button type="submit">{"C'est parti !"}</Button>
           </Box>
         </AnimatedList.Item>
       </AnimatedList>

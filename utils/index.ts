@@ -1,1 +1,2 @@
-export * from "./EmailRegex";
+export * from "./validateEmail";
+export * from "./draw";
