@@ -1,1 +1,1 @@
-export const NB_MAX_PARTICIPANTS = 10;
+export const NB_MAX_PARTICIPANTS = 20;

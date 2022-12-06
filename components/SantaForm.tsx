@@ -1,8 +1,8 @@
-import { AnimatedList, TextField } from "@/ui";
+import { AnimatedList, TextField } from "@/core/ui";
 import { NB_MAX_PARTICIPANTS } from "@/settings";
 import { useFieldArray, useForm } from "react-hook-form";
 import { IParticipant, ISanta } from "@/types";
-import { validateEmail } from "@/utils";
+import { validateEmail } from "@/core/utils";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import {
   Alert,
@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 
 export type ISantaForm = ISanta & {
-  participants: Omit<IParticipant, "target">[];
+  participants: Omit<IParticipant, "target" | "_id">[];
 };
 
 export default function SantaForm() {
@@ -28,9 +28,7 @@ export default function SantaForm() {
     formState: { errors, isSubmitted, isValid },
   } = useForm<ISantaForm>({
     defaultValues: {
-      name: "",
-      notes: "",
-      participants: [{ name: "", email: "" }],
+      participants: [{}],
     },
   });
 
@@ -45,9 +43,12 @@ export default function SantaForm() {
   const onAddParticipant = () => participants.append({ name: "", email: "" });
   const onDeleteParticipant = (index: number) => participants.remove(index);
 
-  const onSubmit = handleSubmit(
-    (data) => console.log("ok", data),
-    (error) => console.warn("error", error)
+  const onSubmit = handleSubmit((data) =>
+    fetch("/api/santa", {
+      headers: { "content-type": "application/json" },
+      method: "POST",
+      body: JSON.stringify(data),
+    })
   );
 
   return (
@@ -78,7 +79,7 @@ export default function SantaForm() {
               isInvalid={!!errors.notes}
               helperText={errors.notes?.message}
               placeholder="Date et lieu de l'évènenement, budget, ..."
-              {...register("notes")}
+              {...register("notes", { setValueAs: (val) => val || null })}
             />
           </Box>
         </AnimatedList.Item>
@@ -135,7 +136,12 @@ export default function SantaForm() {
               onClick={onAddParticipant}
               width="100%"
             >
-              <Card as="span">
+              <Card
+                as="span"
+                transition="background-color 200ms ease"
+                _hover={{ bg: "gray.50" }}
+                _active={{ bg: "gray.100" }}
+              >
                 <CardBody as="span">
                   <AddIcon />
                   <Text as="span" fontWeight="bold" pl={4}>

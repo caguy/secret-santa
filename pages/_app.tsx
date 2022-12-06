@@ -1,8 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import RawSantaSvg from "@/assets/santa.svg";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { theme } from "@/ui";
+import { theme } from "@/core/ui";
 import { AppLayout } from "@/components";
 
 export default function SecretSanta({ Component, pageProps }: AppProps) {

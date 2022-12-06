@@ -1,17 +1,5 @@
+import { IParticipant, ISanta } from "@/types";
 import { Model, Schema, Types } from "mongoose";
-
-export interface IParticipant {
-  _id: Types.ObjectId;
-  name: String;
-  email: String;
-  target: Types.ObjectId;
-}
-
-export interface ISanta {
-  name: string;
-  notes?: string;
-  participants: IParticipant[];
-}
 
 type ISantaDocumentProps = {
   participants: Types.DocumentArray<IParticipant>;
